@@ -97,5 +97,39 @@ python3 client.py
     ☆ The mafia triumphant kings! ☆
     ☆ MAFIA WON ☆
     -------------------------------------------------
+  </pre>
 </details>
+  
+## REST API
+REST сервис реализован с помощью Flask и Sqlite базы данных.
 
+Вывод информации обо всех пользователях игры (текущий запуск сервера)
+```
+curl --location --request GET 'http://127.0.0.1:57015/api/players' --header 'Content-Type:application/json'  | python3 -m json.tool
+```
+Вывод информации об одном игроке по username'у:
+```
+curl --location --request GET 'http://127.0.0.1:57015/api/players/{username}' --header 'Content-Type:application/json' | python3 -m json.tool
+```
+Добавление пользователя в базу данных. Можно указать ```name: str```, ```gender: str```, ```email: str```, ```avatar: str```, ```games: int```, ```wins: int```, ```time_in_game: int```:
+```
+curl --location --request POST 'http://127.0.0.1:57015/api/players/insert' --header 'Content-Type:application/json' --data-raw '{"name": "new_player"}' | python3 -m json.tool
+```
+Обновление данных о пользователе:
+```
+curl --location --request PUT 'http://127.0.0.1:57015/api/players/update' --header 'Content-Type:application/json' --data-raw '{"name": "new_player", "email": "new_player@gmail.com"}' | python3 -m json.tool
+```
+Загрузка картинки (по дефолту default.jpg из rest/images):
+```
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "file=@/Users/{name}/new_player.jpg" http://127.0.0.1:57015/api/players/images/new_player
+```
+Статистика генерируется по асинхронному запросу (с помощью rabbitMQ) по запросу, пдфка генерируется с помощью ```reportlab```:
+```
+curl --location --request POST 'http://127.0.0.1:57015/api/players/statistics/new_player' --header 'Content-Type:application/json'
+```
+Удаление пользователя:
+```
+curl --location --request DELETE 'http://127.0.0.1:57015/api/players/delete/new_player' --header 'Content-Type:application/json' | python3 -m json.tool
+```
+## Итого
+По моим подсчётам я полностью выполнила практику №2, №3 и №4.
