@@ -77,11 +77,11 @@ def create_app() -> Flask:
         channel.confirm_delivery()
         channel.queue_declare(queue='pdf_queue', durable=True)
         try:
-            create_pdf({"name":"{}__".format(username), "id":username})
+            player = get_player_by_name(username)
             channel.basic_publish(
                 exchange='',
                 routing_key='pdf_queue',
-                body=json.dumps({"name":username, "id":username}),
+                body=json.dumps(player),
                 properties=pika.BasicProperties(
                     delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
             ))

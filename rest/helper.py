@@ -156,17 +156,16 @@ def delete_player(username):
         conn.close()
     return message
 
-def create_pdf(query):
-    player = get_player_by_name(query["name"])
+def create_pdf(player):
     if player is None:
         logging.info("{}".format(player))
-        c = Canvas("./statistics_new/{}.pdf".format(query["id"]), pagesize=(595, 210))
+        c = Canvas("./statistics_new/{}.pdf".format(player["name"]), pagesize=(595, 210))
         c.setFont("Helvetica", 20, leading = None)
-        c.drawString(10, 180, "Player doesn't exist.".format({query["name"]}))
+        c.drawString(10, 180, "Player doesn't exist.".format({player["name"]}))
         c.save()
     else:
         print(player)
-        c = Canvas("./statistics_new/{}.pdf".format(query["id"]), pagesize=(595, 210))
+        c = Canvas("./statistics_new/{}.pdf".format(player["name"]), pagesize=(595, 210))
         c.setFont("Helvetica", 20, leading = None)
         c.drawString(10, 180, "Username: {}".format(player["name"]))
         c.drawString(10, 146, "Gender: {}".format(player["gender"]))
