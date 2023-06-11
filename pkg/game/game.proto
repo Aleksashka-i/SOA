@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+service MafiaService {
+  rpc SetUsername(SetUsernameRequest) returns (SetUsernameResponse) {}
+  rpc StartSession(StartSessionRequest) returns (StartSessionResponse) {}
+  rpc JoinSession(JoinSessionRequest) returns (JoinSessionResponse) {}
+  rpc Messenger(MessengerRequest) returns (stream MessengerResponse) {}
+  rpc DayNight(DayNightRequest) returns (DayNightResponse) {}
+  rpc KillPlayer(KillPlayerRequest) returns (KillPlayerResponse) {}
+  rpc DetectiveMove(DetectiveMoveRequest) returns (DetectiveMoveResponse) {}
+  rpc PublishData(PublishDataRequest) returns (PublishDataResponse) {}
+  rpc Info(InfoRequest) returns (InfoResponse) {}
+}
+
+message SetUsernameRequest {
+  string username = 1;
+}
+
+message SetUsernameResponse {
+  enum Status {
+    Ok = 0;
+    NameIsTaken = 1;
+  }
+  Status status = 1;
+}
+
+message StartSessionRequest {
+  string username = 1;
+  string session_id = 2;
+  int32 size = 3;
+}
+
+enum Role {
+  Mafia = 0;
+  Detective = 1;
+  Civillian = 2;
+  Undefined = 3;
+}
+
+message StartSessionResponse {
+  enum Status {
+    Ok = 0;
+    WrongSessionID = 1;
+  }
+  Status status = 1;
+  optional Role role = 2;
+}
+
+message JoinSessionRequest {
+  string username = 1;
+  string session_id = 2;
+}
+
+message JoinSessionResponse {
+  enum Status {
+    Ok = 0;
+    WrongSessionID = 1;
+    SessionIsFull = 2;
+  }
+  Status status = 1;
+  optional Role role = 2;
+}
+
+message MessengerRequest {
+  string username = 1;
+}
+
+message MessengerResponse {
+  enum Status {
+    Join = 0;
+    Start = 1;
+    Kill = 2;
+    End_Game = 3;
+  }
+  Status status = 1;
+  string message = 2;
+  optional string victim = 3;
+}
+
+message DayNightRequest {
+  enum Time {
+    Day = 0;
+    Night = 1;
+  }
+  Time time = 1;
+  string username = 2;
+}
+
+message DayNightResponse {
+  string victim = 1;
+  Role victim_role = 2;
+  string mafia = 3;
+  enum GameOver {
+    NotOver = 0;
+    MafiaWin = 1;
+    CivilWin = 2;
+  }
+  GameOver is_end = 4;
+  repeated string alives = 5;
+  repeated string ghosts = 6;
+}
+
+message KillPlayerRequest {
+  string username = 1;
+  string victim_username = 2;
+}
+
+message KillPlayerResponse {
+}
+
+message DetectiveMoveRequest {
+  string username = 1;
+  string victim_username = 2;
+}
+
+message DetectiveMoveResponse {
+  Role player_role = 2;
+}
+
+message PublishDataRequest {
+  string username = 1;
+  string mafia = 2;
+}
+
+message PublishDataResponse {
+}
+
+message InfoRequest {
+  string username = 1;
+}
+
+message InfoResponse {
+  repeated string alives = 5;
+  repeated string roles = 6;
+}

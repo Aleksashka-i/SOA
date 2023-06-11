@@ -1,0 +1,39 @@
+services:
+  rabbitmq:
+        image: rabbitmq:3-management
+        hostname: "rabbitmq"
+        ports:
+          - "15672:15672"
+          - "5672:5672"
+
+  rest:
+    image: unconsciousi/rest-mafia-server
+    ports:
+      - 57015:57015
+    environment:
+      HOST: 0.0.0.0
+      PORT: 57015
+    volumes:
+      - data-volume:/statistics_new
+
+    
+  worker:
+    image: unconsciousi/rest-mafia-worker
+    volumes:
+      - data-volume:/statistics_new
+
+  
+  chat:
+    image: unconsciousi/chat-mafia-server
+  
+  server:
+    image: unconsciousi/grpc-mafia-server
+    ports:
+      - 51075:51075
+    environment:
+      HOST: 0.0.0.0
+      PORT: 51075
+      RESTSERVER_PORT: rest:57015
+
+volumes:
+    data-volume:
