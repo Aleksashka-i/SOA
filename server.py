@@ -46,7 +46,7 @@ class Session:
         civil_sz = self.size - mafia_sz - DETECTIVE
         self.available_roles += mafia_sz * [MAFIA]
         self.available_roles += [DETECTIVE]
-        self.available_roles += civil_sz * [CIVILLIAN]
+        self.available_roles += civil_sz * [CIVILIAN]
         self.mafia_cnt = mafia_sz
         self.civil_cnt = civil_sz + 1
 
