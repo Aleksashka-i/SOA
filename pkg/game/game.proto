@@ -33,7 +33,7 @@ message StartSessionRequest {
 enum Role {
   Mafia = 0;
   Detective = 1;
-  Civillian = 2;
+  Civilian = 2;
   Undefined = 3;
 }
 
