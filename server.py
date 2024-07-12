@@ -117,7 +117,7 @@ class MafiaServiceServicer(game_pb2_grpc.MafiaServiceServicer):
             if not cur_session.available_roles:
                 cur_session.message_queue.append(game_pb2.MessengerResponse(status=START, message=
                                                                             "\n-------------------------------------------------"
-                                                                            "\nAll players has joined session \"{}\".".format(request.session_id)))
+                                                                            "\nAll players have joined session \"{}\".".format(request.session_id)))
         return game_pb2.JoinSessionResponse(status=OK, role=role)
     
     async def Messenger(self, request, context):
