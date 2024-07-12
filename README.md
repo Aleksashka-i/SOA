@@ -1,12 +1,11 @@
-# Mafia game 
-## (Service-Oriented Architectures homework)
+# mafia game 
 Implemented a gRPC web service "Mafia", a client-server chat for game users using RabbitMQ and REST web service for collecting and providing clients with opportunities to work
 with the resources of the game.
 
-## Description
+## description
 This repository includes a gRPC web service **"SOA-Mafia "** (hw 2), a client-server chat service for game users using the RabbitMQ message queuing system (hw 3), and a REST web service for collecting and enabling clients to work with SOA-Mafia game resources (hw 4).
 
-## Configuration
+## configuration
 To start the gRPC server, the REST server, and RabbitMQ, run the following command.
 ```
 docker-compose up
@@ -23,17 +22,17 @@ You may need to install dependencies locally for clients: <code>grpcio</code>, <
 You can do this via <code>pip install -r requirements.txt</code>. <code>Tkinter</code> is needed for a minimal graphical interface in chat so that you can send messages.
 </details>
 
-## How to play?
+## how to play?
 The game will automatically start after all players are added to the session. All players are bots. The game will start, and night will begin immediately since nothing happens on the first day.
 
-### Night
+### night
 Next, all members of the Mafia (in the case of 4 players, it is one) will be asked to chat. Selecting ``YES`` will open a small window. You can type messages into it and send them using the ```send``` button. Messages will appear in the chat. As mentioned earlier, the chat is implemented with the help of the message broker ``RabbitMQ``. When the GUI is closed, the chat is terminated. 
 
 `Detective` randomly checks the still-alive players (except for himself) and randomly decides if he wants to publish the data if he has identified a member of the Mafia. 
 
 After the chat closes, the Mafia will make 'their choice'-a player other than themselves (if there are multiple Mafia, the victim will be chosen randomly). The Mafia and Detective then send messages to the server, indicating the end of the night for them. Once the server has received these messages from all the players, it announces that the day phase has begun.
 
-### Day
+### day
 The player killed that night is sent a message that he has become a ghost. This player will then only receive messages about who players voted for during the day and who they killed during the night (i.e., the ghost continues to follow the game). During the day, every non-ghost player will also be asked to "chat." To test this, you can select two players and see that only those currently in the chat room receive messages (there is an example picture of what the mini chat interface should look like in the ``pics`` folder).
 
 The game continues until there are 0 mafias (**CIVILIANS WON**) or as many as there are players (**MAFIA WON**).
