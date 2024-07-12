@@ -85,7 +85,7 @@ class Player:
     
     async def day_vote(self, alives, mafia=None):
         alives.remove(self.username)
-        print("\n\nVote for player to be eliminated. Your options:", end = " ", flush=True)
+        print("\n\nVote for the player to be eliminated. Your options:", end = " ", flush=True)
         output = (', '.join('"' + player + '"' for player in alives))
         output += ", or skip the vote."
         print(output, flush=True)
