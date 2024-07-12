@@ -12,9 +12,9 @@ SESSION_IS_FULL = 2
 
 MAFIA = 0
 DETECTIVE = 1
-CIVILLIAN = 2
+CIVILIAN = 2
 UNDEFINED = 3
-ROLES_STR = {MAFIA:"MAFIA", DETECTIVE:"DETECTIVE", CIVILLIAN:"CIVILLIAN", UNDEFINED:"UNDEFINED"}
+ROLES_STR = {MAFIA:"MAFIA", DETECTIVE:"DETECTIVE", CIVILIAN:"CIVILIAN", UNDEFINED:"UNDEFINED"}
 
 ALIVE = 0
 GHOST = 1
@@ -59,5 +59,5 @@ MAFIA_WIN_POEM = ("\n\n-------------------------------------------------"
 CIVIL_WIN_POEM = ("\n\n-------------------------------------------------"
                   "\n☆ Good citizens now may exult. ☆"
                   "\n☆ They have destroyed the evil cult! ☆"
-                  "\n☆ CIVILLIANS WON ☆"
+                  "\n☆ CIVILIANS WON ☆"
                   "\n-------------------------------------------------")
